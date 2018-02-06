@@ -1,4 +1,4 @@
-package main.java.fixtures;
+package test.java.fixtures;
 
 import main.java.Map;
 

@@ -46,4 +46,10 @@ public class PlayerTest {
 		player.move(Direction.SOUTH, map);
 		assertEquals(4, player.getYcoordinate());
 	}
+	
+	@Test
+	public void whenPlayerTriesToMoveNorth_butIsBlocked_moveFails() {
+		player.move(Direction.NORTH, map);
+		assertEquals(0, player.getYcoordinate());
+	}
 }
