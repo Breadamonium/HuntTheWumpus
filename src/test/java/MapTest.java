@@ -19,9 +19,8 @@ public class MapTest {
 	
 	@Test
 	public void whenMapIsCreated_columnsAndRowsGeneratedSuccessfully() {
-		Object[][] grid = map.getGrid();
-		assertEquals(NUMBER_OF_COLUMNS, getNumberOfColumns(grid));
-		assertEquals(NUMBER_OF_ROWS, getNumberOfRows(grid));
+		assertEquals(NUMBER_OF_COLUMNS, map.getNumberOfColumns());
+		assertEquals(NUMBER_OF_ROWS, map.getNumberOfRows());
 	}
 	
 	@Test
@@ -32,13 +31,5 @@ public class MapTest {
 	@Test(expected = RuntimeException.class)
 	public void when6x5mapIsCreated_runtimeExceptionIsThrown() {
 		map = new Map(6, 5);
-	}
-	
-	private int getNumberOfColumns(Object[][] grid) {
-		return grid.length;
-	}
-
-	private int getNumberOfRows(Object[][] grid) {
-		return grid[0].length;
 	}
 }

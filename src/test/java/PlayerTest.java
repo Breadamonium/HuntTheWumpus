@@ -28,8 +28,22 @@ public class PlayerTest {
 	
 	@Test
 	public void whenPlayerTriesToMoveSouth_moveSuccessful() {
-		player.move(Direction.SOUTH);
+		player.move(Direction.SOUTH, map);
 		assertEquals(0, player.getXcoordinate());
 		assertEquals(1, player.getYcoordinate());
+	}
+
+	@Test
+	public void whenPlayerTriesToMoveNorth_moveSuccessful() {
+		player.setYcoordinate(3);
+		player.move(Direction.NORTH, map);
+		assertEquals(2, player.getYcoordinate());
+	}
+	
+	@Test
+	public void whenPlayerTriesToMoveSouth_butIsBlocked_moveFails() {
+		player.setYcoordinate(4);
+		player.move(Direction.SOUTH, map);
+		assertEquals(4, player.getYcoordinate());
 	}
 }

@@ -25,6 +25,14 @@ public class Map {
 		return player;
 	}
 	
+	public int getNumberOfColumns() {
+		return grid.length;
+	}
+
+	public int getNumberOfRows() {
+		return grid[0].length;
+	}
+	
 	public int getNumberOfCaverns() {
 		return grid[0].length * grid.length;
 	}
