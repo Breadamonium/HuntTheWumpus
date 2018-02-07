@@ -2,7 +2,7 @@ package main.java;
 
 import main.java.util.MovementUtil;
 
-public class Player {
+public class Player implements Occupant {
 	private int currentXcoordinate = 0;
 	private int currentYcoordinate = 0;
 	
@@ -13,18 +13,22 @@ public class Player {
 			MovementUtil.moveNorth(map, this);
 	}
 	
+	@Override
 	public int getXcoordinate() {
 		return currentXcoordinate;
 	}
 	
+	@Override
 	public int getYcoordinate() {
 		return currentYcoordinate;
 	}
 
+	@Override
 	public void setXcoordinate(int currentXcoordinate) {
 		this.currentXcoordinate = currentXcoordinate;
 	}
 
+	@Override
 	public void setYcoordinate(int currentYcoordinate) {
 		this.currentYcoordinate = currentYcoordinate;
 	}

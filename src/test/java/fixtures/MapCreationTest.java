@@ -21,7 +21,15 @@ public class MapCreationTest {
 		this.ydimension = ydimension;
 	}
 	
-	public int countRoom(){
-		return new Map(xdimension, ydimension).getNumberOfCaverns();
+	public String countRoom(){
+		try {
+			return String.valueOf(new Map(xdimension, ydimension).getNumberOfCaverns());
+		} catch (NegativeArraySizeException ex) {
+			return "Columns or rows can't have a negative value.";
+		} catch (ArrayIndexOutOfBoundsException ex) {
+			return "Columns or rows must have a minimum value of 1.";
+		} catch (RuntimeException ex) {
+			return "Map too big. 25 max.";
+		}
 	}
 }
