@@ -11,6 +11,10 @@ public class Player implements Occupant {
 			MovementUtil.moveSouth(map, this);
 		else if (Direction.NORTH == direction)
 			MovementUtil.moveNorth(map, this);
+		else if (Direction.EAST == direction)
+			MovementUtil.moveEast(map, this);
+		else if (Direction.WEST == direction)
+			MovementUtil.moveWest(map, this);
 	}
 	
 	@Override

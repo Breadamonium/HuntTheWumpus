@@ -51,7 +51,7 @@ public class PlayerTest {
 
 	@Test
 	public void whenPlayerTriesToMoveNorth_cavernsAndPlayerUpdatedSuccessfully() {
-		movePlayerToCavern(0, 3);		
+		movePlayerToCavernXY(0, 3);		
 		
 		cavernToBeOccupied = map.getCavernsGrid()[2][0];
 		assertFalse(cavernToBeOccupied.getOccupants().contains(player));
@@ -63,10 +63,40 @@ public class PlayerTest {
 		assertFalse(vacatedCavern.getOccupants().contains(player));
 		assertTrue(cavernToBeOccupied.getOccupants().contains(player));
 	}
+
+	@Test
+	public void whenPlayerTriesToMoveEast_cavernsAndPlayerUpdatedSuccessfully() {
+		cavernToBeOccupied = map.getCavernsGrid()[0][1];
+
+		assertPlayerXYcoordinates(0, 0);
+		assertTrue(cavernAt0x0y.getOccupants().contains(player));
+		assertFalse(cavernToBeOccupied.getOccupants().contains(player));
+		
+		player.move(Direction.EAST, map);
+		
+		assertPlayerXYcoordinates(1, 0);
+		assertFalse(cavernAt0x0y.getOccupants().contains(player));
+		assertTrue(cavernToBeOccupied.getOccupants().contains(player));
+	}
+	
+	@Test
+	public void whenPlayerTriesToMoveWest_cavernsAndPlayerUpdatedSuccessfully() {
+		movePlayerToCavernXY(3, 0);		
+		
+		cavernToBeOccupied = map.getCavernsGrid()[0][2];
+		assertFalse(cavernToBeOccupied.getOccupants().contains(player));
+		
+		player.move(Direction.WEST, map);
+		
+		assertPlayerXYcoordinates(2, 0);
+		vacatedCavern = map.getCavernsGrid()[0][3];
+		assertFalse(vacatedCavern.getOccupants().contains(player));
+		assertTrue(cavernToBeOccupied.getOccupants().contains(player));
+	}
 	
 	@Test
 	public void whenPlayerTriesToMoveSouth_butIsInOutsideCavernOnGrid_moveFails() {
-		movePlayerToCavern(0, 4);
+		movePlayerToCavernXY(0, 4);
 	
 		player.move(Direction.SOUTH, map);
 		
@@ -86,8 +116,31 @@ public class PlayerTest {
 		assertPlayerXYcoordinates(0, 0);
 		assertTrue(cavernAt0x0y.getOccupants().contains(player));
 	}
+	
+	@Test
+	public void whenPlayerTriesToMoveEast_butIsInOutsideCavernOnGrid_moveFails() {
+		movePlayerToCavernXY(4, 0);
+	
+		player.move(Direction.EAST, map);
+		
+		assertEquals(4, player.getXcoordinate());
+		assertEquals(0, player.getYcoordinate());
+		cavernToBeOccupied = map.getCavernsGrid()[0][4];
+		assertTrue(cavernToBeOccupied.getOccupants().contains(player));
+	}
+	
+	@Test
+	public void whenPlayerTriesToMoveWest_butIsInOutsideCavernOnGrid_moveFails() {
+		assertPlayerXYcoordinates(0, 0);
+		assertTrue(cavernAt0x0y.getOccupants().contains(player));
+		
+		player.move(Direction.WEST, map);
+		
+		assertPlayerXYcoordinates(0, 0);
+		assertTrue(cavernAt0x0y.getOccupants().contains(player));
+	}
 
-	private void movePlayerToCavern(int x, int y) {
+	private void movePlayerToCavernXY(int x, int y) {
 		cavernToBeOccupied = map.getCavernsGrid()[y][x];
 		cavernAt0x0y.removeOccupant(player);
 		player.setXcoordinate(x);

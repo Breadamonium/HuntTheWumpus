@@ -24,6 +24,24 @@ public class MovementUtil {
 			System.out.println("Can't move south from here.");
 	}
 	
+	public static void moveEast(Map map, Player player) {
+		if (map.getNumberOfRows() > (player.getXcoordinate() + 1)) {
+			removePlayerFromOldCavern(map, player);
+			player.setXcoordinate(player.getXcoordinate() + 1);
+			addPlayerToNewCavern(map, player);
+		} else
+			System.out.println("Can't move east from here.");
+	}
+	
+	public static void moveWest(Map map, Player player) {
+		if (0 < (player.getXcoordinate())) {
+			removePlayerFromOldCavern(map, player);
+			player.setXcoordinate(player.getXcoordinate() - 1);
+			addPlayerToNewCavern(map, player);
+		} else
+			System.out.println("Can't move west from here.");
+	}
+	
 	private static void removePlayerFromOldCavern(Map map, Player player) {
 		Cavern[][] cavernGrid = map.getCavernsGrid();
 		Cavern cavernToBeVacated = cavernGrid[player.getYcoordinate()][player.getXcoordinate()];
