@@ -1,18 +1,14 @@
 package test.java.fixtures;
 
-import main.java.Cavern;
 import main.java.Direction;
 import main.java.Map;
-import main.java.Occupant;
 import main.java.Player;
 
 public class PlayerMovementTest {
-	private int xstart, ystart;
+	private int xstart;
+	private int ystart;
 	private String move;
 	private Map map = new Map(5, 5);
-	private Player player = map.getPlayer();
-	private Cavern cavernToBeOccupied;
-	private Cavern cavernAt0x0y = map.getCavernsGrid()[0][0];
 	
 	public int getXstart() {
 		return xstart;
@@ -38,33 +34,20 @@ public class PlayerMovementTest {
 		this.move = move;
 	}
 	
-	public int xresult(){
+	public void execute() {
+		Player player = map.getPlayer();
 		player.setXcoordinate(xstart);
 		player.setYcoordinate(ystart);
-		movePlayerToCavernXY(xstart, ystart);
-		player.move(Direction.valueOf(move), map);
-		return player.getXcoordinate();
+		map.getCavernsGrid()[0][0].removeOccupant(player);
+		map.getCavernsGrid()[ystart][xstart].addOccupant(player);
+		player.move(Direction.getDirectionFromLetter(move.substring(0, 1)), map);
+	}
+	
+	public int xresult(){
+		return map.getPlayer().getXcoordinate();
 	}
 
 	public int yresult(){
-		player.setXcoordinate(xstart);
-		player.setYcoordinate(ystart);
-		movePlayerToCavernXY(xstart, ystart);
-		player.move(Direction.valueOf(move), map);
-		return player.getYcoordinate();
-	}
-	
-	private void movePlayerToCavernXY(int x, int y) {
-		cavernToBeOccupied = map.getCavernsGrid()[y][x];
-		resetCavernToBeOccupied();
-		cavernAt0x0y.removeOccupant(player);
-		player.setXcoordinate(x);
-		player.setYcoordinate(y);
-		cavernToBeOccupied.addOccupant(player);
-	}
-
-	private void resetCavernToBeOccupied() {
-		for (Occupant occupant : cavernToBeOccupied.getOccupants())
-			cavernToBeOccupied.removeOccupant(occupant);
+		return map.getPlayer().getYcoordinate();
 	}
 }

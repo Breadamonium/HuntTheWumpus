@@ -8,6 +8,7 @@ public class Map {
 	private static final int MAX_NUMBER_OF_CAVERNS = 25;
 	private Cavern[][] grid;
 	private Player player;
+	private Wumpus wumpus;
 	
 	private Map() {
 	}
@@ -17,6 +18,10 @@ public class Map {
 			initializeAllCaverns(columns, rows);
 			player = new Player();
 			grid[player.getYcoordinate()][player.getXcoordinate()].addOccupant(player);
+			wumpus = new Wumpus();
+			wumpus.setXcoordinate(columns - 1);
+			wumpus.setYcoordinate(rows - 1);
+			grid[wumpus.getXcoordinate()][wumpus.getYcoordinate()].addOccupant(wumpus);
 		} else
 			throw new RuntimeException();
 	}
@@ -34,6 +39,10 @@ public class Map {
 
 	public Player getPlayer() {
 		return player;
+	}
+	
+	public Wumpus getWumpus() {
+		return wumpus;
 	}
 	
 	public int getNumberOfColumns() {

@@ -1,6 +1,6 @@
 package main.java;
 
-public class Player implements Occupant {
+public class Wumpus implements Occupant {
 	private int currentXcoordinate = 0;
 	private int currentYcoordinate = 0;
 	
@@ -8,7 +8,7 @@ public class Player implements Occupant {
 	public int getXcoordinate() {
 		return currentXcoordinate;
 	}
-	
+
 	@Override
 	public int getYcoordinate() {
 		return currentYcoordinate;
@@ -23,4 +23,5 @@ public class Player implements Occupant {
 	public void setYcoordinate(int currentYcoordinate) {
 		this.currentYcoordinate = currentYcoordinate;
 	}
+
 }

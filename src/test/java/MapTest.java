@@ -30,12 +30,6 @@ public class MapTest {
 	}
 	
 	@Test
-	public void whenMinus1xMinus2mapIsCreated_contains20caverns() {
-		map = new Map(-1, -2);
-		assertEquals(20, map.getNumberOfCaverns());
-	}
-	
-	@Test
 	public void whenMapIsCreated_playerSpawnsAt0x0y() {
 		assertEquals(map.getPlayer(), map.getCavernsGrid()[0][0].getOccupants().get(0));
 	}

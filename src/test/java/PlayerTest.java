@@ -93,6 +93,17 @@ public class PlayerTest {
 		assertFalse(vacatedCavern.getOccupants().contains(player));
 		assertTrue(cavernToBeOccupied.getOccupants().contains(player));
 	}
+
+	@Test
+	public void whenPlayerTriesToRest_restSuccessfully() {
+		assertPlayerXYcoordinates(0, 0);
+		assertTrue(cavernAt0x0y.getOccupants().contains(player));
+		
+		player.move(Direction.REST, map);
+		
+		assertPlayerXYcoordinates(0, 0);
+		assertTrue(cavernAt0x0y.getOccupants().contains(player));
+	}
 	
 	@Test
 	public void whenPlayerTriesToMoveSouth_butIsInOutsideCavernOnGrid_moveFails() {

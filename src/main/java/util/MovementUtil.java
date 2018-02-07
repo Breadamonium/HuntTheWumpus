@@ -2,54 +2,57 @@ package main.java.util;
 
 import main.java.Cavern;
 import main.java.Map;
-import main.java.Player;
+import main.java.Occupant;
 
 public class MovementUtil {
-	public static void moveNorth(Map map, Player player) {
-		if (0 < player.getYcoordinate()) {
-			removePlayerFromOldCavern(map, player);
-			player.setYcoordinate(player.getYcoordinate() - 1);
-			addPlayerToNewCavern(map, player);
+	public static void moveNorth(Map map, Occupant occupant) {
+		if (0 < occupant.getYcoordinate()) {
+			removePlayerFromOldCavern(map, occupant);
+			occupant.setYcoordinate(occupant.getYcoordinate() - 1);
+			addPlayerToNewCavern(map, occupant);
 		}
 		else
 			System.out.println("Can't move north from here.");
 	}
 	
-	public static void moveSouth(Map map, Player player) {
-		if (map.getNumberOfRows() > (player.getYcoordinate() + 1)) {
-			removePlayerFromOldCavern(map, player);
-			player.setYcoordinate(player.getYcoordinate() + 1);
-			addPlayerToNewCavern(map, player);
+	public static void moveSouth(Map map, Occupant occupant) {
+		if (map.getNumberOfRows() > (occupant.getYcoordinate() + 1)) {
+			removePlayerFromOldCavern(map, occupant);
+			occupant.setYcoordinate(occupant.getYcoordinate() + 1);
+			addPlayerToNewCavern(map, occupant);
 		} else
 			System.out.println("Can't move south from here.");
 	}
 	
-	public static void moveEast(Map map, Player player) {
-		if (map.getNumberOfRows() > (player.getXcoordinate() + 1)) {
-			removePlayerFromOldCavern(map, player);
-			player.setXcoordinate(player.getXcoordinate() + 1);
-			addPlayerToNewCavern(map, player);
+	public static void moveEast(Map map, Occupant occupant) {
+		if (map.getNumberOfRows() > (occupant.getXcoordinate() + 1)) {
+			removePlayerFromOldCavern(map, occupant);
+			occupant.setXcoordinate(occupant.getXcoordinate() + 1);
+			addPlayerToNewCavern(map, occupant);
 		} else
 			System.out.println("Can't move east from here.");
 	}
 	
-	public static void moveWest(Map map, Player player) {
-		if (0 < (player.getXcoordinate())) {
-			removePlayerFromOldCavern(map, player);
-			player.setXcoordinate(player.getXcoordinate() - 1);
-			addPlayerToNewCavern(map, player);
+	public static void moveWest(Map map, Occupant occupant) {
+		if (0 < (occupant.getXcoordinate())) {
+			removePlayerFromOldCavern(map, occupant);
+			occupant.setXcoordinate(occupant.getXcoordinate() - 1);
+			addPlayerToNewCavern(map, occupant);
 		} else
 			System.out.println("Can't move west from here.");
 	}
 	
-	private static void removePlayerFromOldCavern(Map map, Player player) {
+	private static void removePlayerFromOldCavern(Map map, Occupant occupant) {
 		Cavern[][] cavernGrid = map.getCavernsGrid();
-		Cavern cavernToBeVacated = cavernGrid[player.getYcoordinate()][player.getXcoordinate()];
-		cavernToBeVacated.removeOccupant(player);
+		Cavern cavernToBeVacated = cavernGrid[occupant.getYcoordinate()][occupant.getXcoordinate()];
+		cavernToBeVacated.removeOccupant(occupant);
 	}
 
-	private static void addPlayerToNewCavern(Map map, Player player) {
-		Cavern cavernToBeOccupied = map.getCavernsGrid()[player.getYcoordinate()][player.getXcoordinate()];
-		cavernToBeOccupied.addOccupant(player);
+	private static void addPlayerToNewCavern(Map map, Occupant occupant) {
+		Cavern cavernToBeOccupied = map.getCavernsGrid()[occupant.getYcoordinate()][occupant.getXcoordinate()];
+		cavernToBeOccupied.addOccupant(occupant);
+	}
+
+	public static void rest(Map map, Occupant occupant) {
 	}
 }
