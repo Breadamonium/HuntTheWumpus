@@ -42,6 +42,22 @@ public class Map {
 				grid[column][row] = new Cavern();
 	}
 	
+	public void setPitInCavern(int columnX, int rowY) {
+		grid[columnX][rowY].setHasPit(true);
+	}
+	
+	public void setBatsInCavern(int columnX, int rowY) {
+		grid[columnX][rowY].setHasBats(true);
+	}
+	
+	public void removePitsAtCavern(int columnX, int rowY) {
+		grid[columnX][rowY].setHasPit(false);
+	}
+	
+	public void removeBatsAtCavern(int columnX, int rowY) {
+		grid[columnX][rowY].setHasBats(false);
+	}
+	
 	public Cavern[][] getCavernsGrid() {
 		return grid;
 	}
@@ -68,5 +84,24 @@ public class Map {
 	
 	public boolean validateColumnsAndRows(int columnsX, int rowsY) {
 		return (columnsX * rowsY) <= MAX_NUMBER_OF_CAVERNS;
+	}
+	
+	public static void printMap(Map map) {
+		int columns = map.getNumberOfColumns();
+		int rows = map.getNumberOfRows();
+		for (int j = 0; j < 2 * rows; j++) {
+			if (j % 2 == 0) {
+				for (int i = 0; i < columns; i++) {
+					System.out.print("___");
+				}
+			}
+			else {
+				for (int k = 0; k < columns; k++) {
+					System.out.print("|  ");
+				}
+				System.out.print("|");
+			}
+			System.out.println("");
+		}
 	}
 }
