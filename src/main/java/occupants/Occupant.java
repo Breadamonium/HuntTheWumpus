@@ -35,6 +35,15 @@ public abstract class Occupant {
 		map.getCavernsGrid()[xEnd][yEnd].addOccupant(this);
 	}
 	
+	public boolean checkIsInStraightPath(int xCoordA, int yCoordA, int xCoordB, int yCoordB) {
+		return checkIfCoordinatesAreSame(xCoordA, xCoordB) || checkIfCoordinatesAreSame(yCoordA, yCoordB);
+	}
+	
+	public boolean checkIfCoordinatesAreSame(int aCoordinate, int bCoordinate) {
+		return (aCoordinate == bCoordinate);
+	}
+	
+	
 	public boolean move(Direction direction, Map map) {
 		if (Direction.SOUTH == direction) 
 			return MovementUtil.moveSouth(map, this);
@@ -47,12 +56,13 @@ public abstract class Occupant {
 		else if (Direction.REST == direction)
 			return MovementUtil.rest(map, this);
 		else
-			return false;
+			throw new RuntimeException();
 	}
 	
 	public boolean moveRandomly(Map map) {
 		int randomNum = ThreadLocalRandom.current().nextInt(0, 5);
 		Direction nextMove = Direction.getDirectionFromNumber(randomNum);
+		System.out.println("\tMoving " + nextMove + "...");
 		return move(nextMove, map);
 	}
 }
