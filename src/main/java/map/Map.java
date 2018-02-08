@@ -10,19 +10,18 @@ public class Map {
 	private Player player;
 	private Wumpus wumpus;
 	
-	@SuppressWarnings("unused")
-	private Map() {
-	}
-	
 	public Map(int columnsX, int rowsY) {
 		if (validateColumnsAndRows(columnsX, rowsY)) {
 			initializeGridWithAllCaverns(columnsX, rowsY);
 			addPlayerToGrid();
 			addWumpusToGrid(columnsX, rowsY);
 		} else
-			throw new RuntimeException();
+			throw new RuntimeException("Total number of caverns can't add up to more than 25.");
 	}
 	
+	public Map() {
+	}
+
 	private void addPlayerToGrid() {
 		player = new Player();
 		grid[player.getColumn()][player.getRow()].addOccupant(player);

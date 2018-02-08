@@ -1,7 +1,5 @@
 package test.java;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
 import main.java.Direction;
@@ -72,7 +70,6 @@ public class WumpusTest extends OccupantTest {
 		
 		assertOccupantCoordinates(wumpus, 4, 3);
 		assertCavernContainsOccupant(cavernAt4x3y, wumpus);
-		assertEquals(SOUTH_MOVEMENT_WARNING, outContent.toString());
 	}
 	
 	@Test
@@ -84,7 +81,6 @@ public class WumpusTest extends OccupantTest {
 		cavernToBeOccupied = map.getCavernsGrid()[0][0];
 		assertOccupantCoordinates(wumpus, 0, 0);
 		assertCavernContainsOccupant(cavernToBeOccupied, wumpus);
-		assertEquals(NORTH_MOVEMENT_WARNING, outContent.toString());
 	}
 	
 	@Test
@@ -93,7 +89,6 @@ public class WumpusTest extends OccupantTest {
 		
 		assertOccupantCoordinates(wumpus, 4, 3);
 		assertCavernContainsOccupant(cavernAt4x3y, wumpus);
-		assertEquals(EAST_MOVEMENT_WARNING, outContent.toString());
 	}
 	
 	@Test
@@ -105,6 +100,5 @@ public class WumpusTest extends OccupantTest {
 		cavernToBeOccupied = map.getCavernsGrid()[0][0];
 		assertOccupantCoordinates(wumpus, 0, 0);
 		assertCavernContainsOccupant(cavernToBeOccupied, wumpus);
-		assertEquals(WEST_MOVEMENT_WARNING, outContent.toString());
 	}
 }

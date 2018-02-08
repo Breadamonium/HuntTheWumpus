@@ -31,10 +31,12 @@ public class MapVisual extends JFrame {
 				grid[i][j] = new JLabel();
 				grid[i][j].setBorder(new LineBorder(Color.BLACK));
 				grid[i][j].setOpaque(true);
+				grid[i][j].setForeground(Color.WHITE);
 				panel.add(grid[i][j]);
 			}
 		}
-		grid[0][0].setBackground(Color.red);
+		grid[0][0].setText("PLAYER");
+		grid[rows - 1][columns - 1].setText("WUMPUS");
 	}
 
 	public JLabel[][] getGrid() {

@@ -47,13 +47,12 @@ public abstract class Occupant {
 		else if (Direction.REST == direction)
 			return MovementUtil.rest(map, this);
 		else
-			throw new RuntimeException();
+			return false;
 	}
 	
 	public boolean moveRandomly(Map map) {
 		int randomNum = ThreadLocalRandom.current().nextInt(0, 5);
 		Direction nextMove = Direction.getDirectionFromNumber(randomNum);
-		System.out.println("\tMoving " + nextMove + "...");
 		return move(nextMove, map);
 	}
 }

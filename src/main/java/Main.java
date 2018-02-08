@@ -6,6 +6,7 @@ import java.util.Scanner;
 import main.java.map.Map;
 import main.java.occupants.Player;
 import main.java.occupants.Wumpus;
+import main.java.util.NotificationUtil;
 import main.java.visuals.MapVisual;
 
 public class Main {
@@ -16,7 +17,6 @@ public class Main {
 	private static Scanner scan;
 	
 	public static void main(String[] args) {
-		
 		map = new Map(5, 4);
 		player = map.getPlayer();
 		wumpus = map.getWumpus();
@@ -30,12 +30,14 @@ public class Main {
 
 		boolean isPlayerDead = false;
 		boolean gavePlayerAnExtraTurn = false;
-		do {
-			System.out.printf("Player Before: (%d,%d)\n", player.getColumn(), player.getRow());
+		while (!isPlayerDead) {
 			movePlayer();
-			System.out.printf("Player After: (%d,%d)\n", player.getColumn(), player.getRow());
 			
-			if (checkIfPlayerIsOneAwayFromWumpus()) {
+			isPlayerDead = NotificationUtil.checkIfPlayerIsDead(player, wumpus);
+			if (isPlayerDead)
+				break;
+			
+			if (NotificationUtil.checkIfPlayerIsOneAwayFromWumpus(player, wumpus)) {
 				System.out.println("** I can smell the Wumpus. **\n");
 				if (!gavePlayerAnExtraTurn) {
 					gavePlayerAnExtraTurn = true;
@@ -43,25 +45,23 @@ public class Main {
 				}
 			}
 			
-			System.out.printf("Wumpus Before: (%d,%d)\n", wumpus.getColumn(), wumpus.getRow());
 			moveWumpus();
-			System.out.printf("Wumpus After: (%d,%d)\n\n", wumpus.getColumn(), wumpus.getRow());
 			
-			if (checkIfPlayerIsOneAwayFromWumpus()) {
+			if (NotificationUtil.checkIfPlayerIsOneAwayFromWumpus(player, wumpus)) {
 				System.out.println("** I can smell the Wumpus. **\n");
 				gavePlayerAnExtraTurn = false;
 				continue;
 			}
 
-			isPlayerDead = checkIfPlayerIsDead();
-		} while (!isPlayerDead);
+			isPlayerDead = NotificationUtil.checkIfPlayerIsDead(player, wumpus);
+		}
 		scan.close();
 		
 		System.out.println("\n=========== Game Over ============");
 	}
 
 	private static String queryDirectionToMovePlayer() {
-		System.out.println("\tMove Player North(N), South(S), East(E), West(W), or Rest(R)?");
+		System.out.println("Move Player North(N), South(S), East(E), West(W), or Rest(R)?");
 		return scan.nextLine();
 	}
 
@@ -73,45 +73,30 @@ public class Main {
 		boolean wasOccupantMovementSuccessful = player.move(Direction.getDirectionFromLetter(direction), map);
 		if (!wasOccupantMovementSuccessful) {
 			while (!wasOccupantMovementSuccessful) {
-				System.out.println("\tMove unsuccessful. Please try a different direction.");
+				System.out.println("Move unsuccessful. Please try again.");
 				direction = queryDirectionToMovePlayer();
 				wasOccupantMovementSuccessful = player.move(Direction.getDirectionFromLetter(direction), map);
 			}
 		}
-		visual.getGrid()[player.getRow()][player.getColumn()].setBackground(Color.BLUE);
 		visual.getGrid()[rowBeforeMove][columnBeforeMove].setBackground(null);
+		visual.getGrid()[rowBeforeMove][columnBeforeMove].setText("");
+		visual.getGrid()[player.getRow()][player.getColumn()].setBackground(Color.BLUE);
+		visual.getGrid()[player.getRow()][player.getColumn()].setText("PLAYER");
 	}
 	
 	private static void moveWumpus() {
+		int columnBeforeMove = wumpus.getColumn();
+		int rowBeforeMove = wumpus.getRow();
+		
 		boolean wasOccupantMovementSuccessful = wumpus.moveRandomly(map);
 		if (!wasOccupantMovementSuccessful)
 			while (!wasOccupantMovementSuccessful)
 				wasOccupantMovementSuccessful = wumpus.moveRandomly(map);
-	}
-
-	public static boolean checkIfPlayerIsDead() {
-		boolean areInSameColumn = checkIfCoordinatesAreSame(player.getColumn(), wumpus.getColumn());
-		boolean areInSameRow = checkIfCoordinatesAreSame(player.getRow(), wumpus.getRow());
-		return (areInSameColumn && areInSameRow);
-	}
-
-	public static boolean checkIfPlayerIsOneAwayFromWumpus() {
-		int playerColumn = player.getColumn();
-		int playerRow = player.getRow();
-        int wumpusColumn = wumpus.getColumn();
-        int wumpusRow = wumpus.getRow();
 		
-		boolean areInSameColumn = checkIfCoordinatesAreSame(playerColumn, wumpusColumn);
-		boolean areInSameRow = checkIfCoordinatesAreSame(playerRow, wumpusRow);
+		visual.getGrid()[rowBeforeMove][columnBeforeMove].setBackground(null);
+		visual.getGrid()[rowBeforeMove][columnBeforeMove].setText("");
+		visual.getGrid()[wumpus.getRow()][wumpus.getColumn()].setBackground(Color.RED);
+		visual.getGrid()[wumpus.getRow()][wumpus.getColumn()].setText("WUMPUS");
 		
-		boolean wumpusIsNorth = areInSameColumn && checkIfCoordinatesAreSame(playerRow - 1, wumpusRow);
-		boolean wumpusIsSouth = areInSameColumn && checkIfCoordinatesAreSame(playerRow + 1, wumpusRow);
-		boolean wumpusIsEast = areInSameRow && checkIfCoordinatesAreSame(playerColumn + 1, wumpusRow);
-        boolean wumpusIsWest = areInSameRow && checkIfCoordinatesAreSame(playerColumn - 1, wumpusColumn);
-        return (wumpusIsNorth || wumpusIsEast || wumpusIsSouth || wumpusIsWest);
-	}
-
-	public static boolean checkIfCoordinatesAreSame(int aCoordinate, int bCoordinate) {
-		return (aCoordinate == bCoordinate);
 	}
 }

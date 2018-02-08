@@ -27,9 +27,9 @@ public enum Direction {
 		return null;
 	}
 	
-	public static Direction getDirectionFromLetter(String letter) {
+	public static Direction getDirectionFromLetter(String code) {
 		for (Direction direction : Direction.values()) {
-			if (direction.getCode().equals(letter))
+			if (direction.getCode().equals(code))
 				return direction;
 		}
 		return null;
