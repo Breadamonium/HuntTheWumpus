@@ -3,12 +3,12 @@ package main.java.map;
 import java.util.ArrayList;
 import java.util.List;
 
+import main.java.occupants.Arrow;
 import main.java.occupants.Occupant;
 
 public class Cavern {
 	private List<Occupant> occupants = new ArrayList<Occupant>();
 	private boolean hasPit;
-	private int numArrow;
 	private boolean hasBats;
 	
 	public void addOccupant(Occupant occupant) {
@@ -30,13 +30,19 @@ public class Cavern {
 	public void setHasPit(boolean hasPit) {
 		this.hasPit = hasPit;
 	}
-
-	public int getHasArrow() {
-		return numArrow;
+	
+	public int countArrows() {
+		int arrowCount = 0;
+		for (Occupant something : occupants) {
+			if (something instanceof Arrow) {
+				arrowCount++;
+			}
+		}
+		return arrowCount;
 	}
-
-	public void setHasArrow(int hasArrow) {
-		this.numArrow = hasArrow;
+	
+	public void removeArrowsHere() {
+		occupants.removeIf(i -> i instanceof Arrow);
 	}
 
 	public boolean getHasBats() {

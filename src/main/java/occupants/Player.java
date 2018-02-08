@@ -3,11 +3,19 @@ package main.java.occupants;
 import java.util.ArrayList;
 
 import main.java.Direction;
+import main.java.map.Cavern;
 import main.java.map.Map;
 
 public class Player extends Occupant {
 	private ArrayList<Arrow> inventory = new ArrayList<Arrow>();
 	
+	public Player(int startingArrows) {
+		for (int j = 0; j<startingArrows; j++) {
+			Arrow anArrow = new Arrow();
+			inventory.add(anArrow);
+		}
+	}
+
 	private int calculateXEnd(Map m, Direction d) {
 		if (d.equals(Direction.EAST)) {
 			return m.getNumberOfColumns() - 1;
@@ -38,6 +46,24 @@ public class Player extends Occupant {
 			int yEnd = calculateYEnd(map, direction);
 			toShoot.teleport(map, xEnd, yEnd);
 			inventory.remove(0);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean pickUpArrows(Map map) {
+		int xLocation = map.getPlayer().getColumn();
+		int yLocation = map.getPlayer().getRow();
+		Cavern currentCave = map.getCavernsGrid()[xLocation][yLocation];
+		int arrowsToRefill = currentCave.countArrows();
+		if (arrowsToRefill>0) {
+			currentCave.removeArrowsHere();
+			for (int i = 0; i<arrowsToRefill; i++) {
+				Arrow replenished = new Arrow();
+				this.inventory.add(replenished);
+			}
 			return true;
 		}
 		else {
