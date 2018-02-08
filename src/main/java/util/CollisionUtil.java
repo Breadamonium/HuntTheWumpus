@@ -33,14 +33,10 @@ public class CollisionUtil {
 		return map.getCavernsGrid()[playerX][playerY].getHasBats();
 	}
 	
-	public static boolean encounterBats(Map map) {
-		if (checkIfPlayerIsOnBats(map)) {
-			int randomNumCol = ThreadLocalRandom.current().nextInt(0, map.getNumberOfColumns());
-			int randomNumRow = ThreadLocalRandom.current().nextInt(0, map.getNumberOfRows());
-			map.getPlayer().teleport(map, randomNumCol, randomNumRow);
-			return true;
-		}
-		return false;
+	public static void teleportPlayerToRandomLocation(Map map) {
+		int randomNumCol = ThreadLocalRandom.current().nextInt(0, map.getNumberOfColumns());
+		int randomNumRow = ThreadLocalRandom.current().nextInt(0, map.getNumberOfRows());
+		map.getPlayer().teleport(map, randomNumCol, randomNumRow);
 	}
 	
 }

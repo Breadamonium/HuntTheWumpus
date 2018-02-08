@@ -45,4 +45,22 @@ public class NotificationUtil {
 				return true;
 		return false;
 	}
+	
+	public static boolean checkIfPlayerIsOneAwayFromBats(Player player, Map map) {
+		ArrayList<Cavern> cavernsToCheck = new ArrayList<Cavern>();
+		int playerColumn = player.getColumn();
+		int playerRow = player.getRow();
+		if (player.getColumn() > 0)
+			cavernsToCheck.add(map.getCavernsGrid()[playerColumn - 1][playerRow]);
+		if ((player.getColumn() + 1) < map.getNumberOfColumns())
+			cavernsToCheck.add(map.getCavernsGrid()[playerColumn + 1][playerRow]);
+		if ((player.getRow() + 1) < map.getNumberOfRows())
+			cavernsToCheck.add(map.getCavernsGrid()[playerColumn][playerRow + 1]);
+		if (player.getRow() > 0)
+			cavernsToCheck.add(map.getCavernsGrid()[playerColumn][playerRow - 1]);
+		for (Cavern oneCavern : cavernsToCheck) 
+			if (oneCavern.getHasBats()) 
+				return true;
+		return false;
+	}
 }

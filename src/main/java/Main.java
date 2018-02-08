@@ -1,12 +1,10 @@
 package main.java;
 
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
-import main.java.map.Cavern;
 import main.java.map.Map;
 import main.java.occupants.Player;
 import main.java.occupants.Wumpus;
@@ -34,7 +32,7 @@ public class Main {
 		scan = new Scanner(System.in);
 
 		boolean isPlayerDead = false;
-		boolean gavePlayerAnExtraTurn = false;
+		boolean givePlayerAnExtraTurn = false;
 		while (!isPlayerDead) {
 			movePlayer();
 
@@ -43,23 +41,36 @@ public class Main {
 				break;
 
 			if (NotificationUtil.checkIfPlayerIsOneAwayFromWumpus(player, wumpus)) {
-				JOptionPane.showMessageDialog(visual, "I can smell the Wumpus.", "Wumpus Nearby",
-						JOptionPane.WARNING_MESSAGE);
-				if (!gavePlayerAnExtraTurn) {
-					gavePlayerAnExtraTurn = true;
+				JOptionPane.showMessageDialog(visual, "Wumpus nearby.", "Wumpus Nearby", JOptionPane.WARNING_MESSAGE);
+				if (!givePlayerAnExtraTurn) {
+					givePlayerAnExtraTurn = true;
 					continue;
 				}
 			}
 			
-			if (NotificationUtil.checkIfPlayerIsOneAwayFromPit(player, map)) 
-				JOptionPane.showMessageDialog(visual, "Pit Nearby.", "Pit Nearby", JOptionPane.WARNING_MESSAGE);
+			if (CollisionUtil.checkIfPlayerIsOnBats(map)) {
+				JOptionPane.showMessageDialog(visual, "Encountered bats. Teloporting...", "Encountered Bats", JOptionPane.WARNING_MESSAGE);
+				CollisionUtil.teleportPlayerToRandomLocation(map);
+				visual.getGrid()[player.getRow()][player.getColumn()].setBackground(Color.BLUE);
+				visual.getGrid()[player.getRow()][player.getColumn()].setForeground(Color.WHITE);
+				visual.getGrid()[player.getRow()][player.getColumn()].setText("PLAYER");
+				visual.getGrid()[0][4].setBackground(Color.GREEN);
+				visual.getGrid()[0][4].setForeground(Color.WHITE);
+				visual.getGrid()[0][4].setText("BATS");		
+			}
 
+			if (NotificationUtil.checkIfPlayerIsOneAwayFromPit(player, map)) 
+				JOptionPane.showMessageDialog(visual, "Pit nearby.", "Pit Nearby", JOptionPane.WARNING_MESSAGE);
+			
+			if (NotificationUtil.checkIfPlayerIsOneAwayFromBats(player, map)) 
+				JOptionPane.showMessageDialog(visual, "Bats nearby.", "Bats Nearby", JOptionPane.WARNING_MESSAGE);
+			
+			
 			moveWumpus();
 
 			if (NotificationUtil.checkIfPlayerIsOneAwayFromWumpus(player, wumpus)) {
-				JOptionPane.showMessageDialog(visual, "I can smell the Wumpus.", "Wumpus Nearby",
-						JOptionPane.WARNING_MESSAGE);
-				gavePlayerAnExtraTurn = false;
+				JOptionPane.showMessageDialog(visual, "Wumpus nearby.", "Wumpus Nearby", JOptionPane.WARNING_MESSAGE);
+				givePlayerAnExtraTurn = false;
 				continue;
 			}
 
@@ -86,7 +97,7 @@ public class Main {
 		boolean wasOccupantMovementSuccessful = player.move(Direction.getDirectionFromLetter(direction), map);
 		if (!wasOccupantMovementSuccessful) {
 			while (!wasOccupantMovementSuccessful) {
-				System.out.println("Move unsuccessful. Please try again.");
+				JOptionPane.showMessageDialog(visual, "Invalid move.", "Invalid Move", JOptionPane.WARNING_MESSAGE);
 				direction = queryDirectionToMovePlayer();
 				wasOccupantMovementSuccessful = player.move(Direction.getDirectionFromLetter(direction), map);
 			}
@@ -110,27 +121,5 @@ public class Main {
 		visual.getGrid()[rowBeforeMove][columnBeforeMove].setText("");
 		visual.getGrid()[wumpus.getRow()][wumpus.getColumn()].setBackground(Color.RED);
 		visual.getGrid()[wumpus.getRow()][wumpus.getColumn()].setText("WUMPUS");
-		
-	}
-
-	public static boolean checkIfPlayerIsOneAwayFromBats(Map map) {
-		ArrayList<Cavern> cavernsToCheck = new ArrayList<Cavern>();
-		int playerColumn = player.getColumn();
-		int playerRow = player.getRow();
-		cavernsToCheck.add(map.getCavernsGrid()[playerColumn - 1][playerRow]);
-		cavernsToCheck.add(map.getCavernsGrid()[playerColumn + 1][playerRow]);
-		cavernsToCheck.add(map.getCavernsGrid()[playerColumn][playerRow + 1]);
-		cavernsToCheck.add(map.getCavernsGrid()[playerColumn][playerRow - 1]);
-		boolean alert = false;
-		for (Cavern oneCavern : cavernsToCheck) {
-			if (oneCavern.getHasBats()) {
-				alert = true;
-			}
-		}
-		return alert;
-	}
-
-	public static boolean checkIfCoordinatesAreSame(int aCoordinate, int bCoordinate) {
-		return (aCoordinate == bCoordinate);
 	}
 }

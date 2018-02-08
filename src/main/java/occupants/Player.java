@@ -9,6 +9,9 @@ import main.java.map.Map;
 public class Player extends Occupant {
 	private ArrayList<Arrow> inventory = new ArrayList<Arrow>();
 	
+	public Player() {
+	}
+	
 	public Player(int startingArrows) {
 		for (int j = 0; j<startingArrows; j++) {
 			Arrow anArrow = new Arrow();
