@@ -19,7 +19,7 @@ public class Player extends Occupant {
 		}
 	}
 
-	private int calculateXEnd(Map m, Direction d) {
+	public static int calculateXEnd(Map m, Direction d) {
 		if (d.equals(Direction.EAST)) {
 			return m.getNumberOfColumns() - 1;
 		}
@@ -31,7 +31,7 @@ public class Player extends Occupant {
 		}
 	}
 
-	private int calculateYEnd(Map m, Direction d) {
+	public static int calculateYEnd(Map m, Direction d) {
 		if (d.equals(Direction.NORTH)) {
 			return 0;
 		}
@@ -72,5 +72,9 @@ public class Player extends Occupant {
 		else {
 			return false;
 		}
+	}
+	
+	public int getNumberOfArrows() {
+		return inventory.size();
 	}
 }

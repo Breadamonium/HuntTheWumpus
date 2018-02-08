@@ -35,8 +35,17 @@ public abstract class Occupant {
 		map.getCavernsGrid()[xEnd][yEnd].addOccupant(this);
 	}
 	
-	public boolean checkIsInStraightPath(int xCoordA, int yCoordA, int xCoordB, int yCoordB) {
-		return checkIfCoordinatesAreSame(xCoordA, xCoordB) || checkIfCoordinatesAreSame(yCoordA, yCoordB);
+	public boolean checkIsInStraightPath(int xCoordA, int yCoordA, int xCoordB, int yCoordB, Direction directionAToB) {
+		if (Direction.SOUTH == directionAToB) 
+			return checkIfCoordinatesAreSame(xCoordA, xCoordB) && (yCoordB > yCoordA);
+		else if (Direction.NORTH == directionAToB) 
+			return checkIfCoordinatesAreSame(xCoordA, xCoordB) && (yCoordB < yCoordA);
+		else if (Direction.EAST == directionAToB)
+			return checkIfCoordinatesAreSame(yCoordA, yCoordB) && (xCoordA < xCoordB);
+		else if (Direction.WEST == directionAToB)
+			return checkIfCoordinatesAreSame(yCoordA, yCoordB) && (xCoordA > xCoordB);
+		else 
+			return false;
 	}
 	
 	public boolean checkIfCoordinatesAreSame(int aCoordinate, int bCoordinate) {
