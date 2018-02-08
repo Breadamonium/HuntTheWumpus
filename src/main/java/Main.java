@@ -1,22 +1,31 @@
 package main.java;
 
+import java.awt.Color;
 import java.util.Scanner;
 
 import main.java.map.Map;
 import main.java.occupants.Player;
 import main.java.occupants.Wumpus;
+import main.java.visuals.MapVisual;
 
 public class Main {
+	private static MapVisual visual;
 	private static Map map;
 	private static Player player;
 	private static Wumpus wumpus; 
 	private static Scanner scan;
 	
 	public static void main(String[] args) {
+		
 		map = new Map(5, 4);
 		player = map.getPlayer();
 		wumpus = map.getWumpus();
 		
+		visual = new MapVisual(map.getNumberOfColumns(), map.getNumberOfRows());
+		visual.getGrid()[player.getRow()][player.getColumn()].setBackground(Color.BLUE);
+		visual.getGrid()[wumpus.getRow()][wumpus.getColumn()].setBackground(Color.RED);
+		visual.setVisible(true);
+
 		scan = new Scanner(System.in);
 
 		boolean isPlayerDead = false;
@@ -57,6 +66,9 @@ public class Main {
 	}
 
 	private static void movePlayer() {
+		int columnBeforeMove = player.getColumn();
+		int rowBeforeMove = player.getRow();
+		
 		String direction = queryDirectionToMovePlayer();
 		boolean wasOccupantMovementSuccessful = player.move(Direction.getDirectionFromLetter(direction), map);
 		if (!wasOccupantMovementSuccessful) {
@@ -66,6 +78,8 @@ public class Main {
 				wasOccupantMovementSuccessful = player.move(Direction.getDirectionFromLetter(direction), map);
 			}
 		}
+		visual.getGrid()[player.getRow()][player.getColumn()].setBackground(Color.BLUE);
+		visual.getGrid()[rowBeforeMove][columnBeforeMove].setBackground(null);
 	}
 	
 	private static void moveWumpus() {

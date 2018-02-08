@@ -35,25 +35,25 @@ public abstract class Occupant {
 		map.getCavernsGrid()[xEnd][yEnd].addOccupant(this);
 	}
 	
-	public void move(Direction direction, Map map) {
+	public boolean move(Direction direction, Map map) {
 		if (Direction.SOUTH == direction) 
-			MovementUtil.moveSouth(map, this);
+			return MovementUtil.moveSouth(map, this);
 		else if (Direction.NORTH == direction) {
-			MovementUtil.moveNorth(map, this);
+			return MovementUtil.moveNorth(map, this);
 		} else if (Direction.EAST == direction)
-			MovementUtil.moveEast(map, this);
+			return MovementUtil.moveEast(map, this);
 		else if (Direction.WEST == direction)
-			MovementUtil.moveWest(map, this);
+			return MovementUtil.moveWest(map, this);
 		else if (Direction.REST == direction)
-			MovementUtil.rest(map, this);
+			return MovementUtil.rest(map, this);
 		else
 			throw new RuntimeException();
 	}
 	
-	public void moveRandomly(Map map) {
+	public boolean moveRandomly(Map map) {
 		int randomNum = ThreadLocalRandom.current().nextInt(0, 5);
 		Direction nextMove = Direction.getDirectionFromNumber(randomNum);
 		System.out.println("\tMoving " + nextMove + "...");
-		move(nextMove, map);
+		return move(nextMove, map);
 	}
 }
