@@ -1,8 +1,8 @@
 package test.java.fixtures;
 
 import main.java.Direction;
-import main.java.Map;
-import main.java.Player;
+import main.java.map.Map;
+import main.java.occupants.Player;
 
 public class PlayerMovementTest {
 	private int xstart;
@@ -36,18 +36,18 @@ public class PlayerMovementTest {
 	
 	public void execute() {
 		Player player = map.getPlayer();
-		player.setXcoordinate(xstart);
-		player.setYcoordinate(ystart);
+		player.setColumn(xstart);
+		player.setRow(ystart);
 		map.getCavernsGrid()[0][0].removeOccupant(player);
 		map.getCavernsGrid()[ystart][xstart].addOccupant(player);
 		player.move(Direction.getDirectionFromLetter(move.substring(0, 1)), map);
 	}
 	
 	public int xresult(){
-		return map.getPlayer().getXcoordinate();
+		return map.getPlayer().getColumn();
 	}
 
 	public int yresult(){
-		return map.getPlayer().getYcoordinate();
+		return map.getPlayer().getRow();
 	}
 }

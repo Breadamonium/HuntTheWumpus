@@ -1,6 +1,6 @@
 package test.java.fixtures;
 
-import main.java.Map;
+import main.java.map.Map;
 
 public class MapCreationTest {
 	private String xdimension, ydimension;

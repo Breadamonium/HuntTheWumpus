@@ -2,11 +2,12 @@ package test.java;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import main.java.Map;
+import main.java.map.Map;
 
 public class MapTest {
 	private Map map;
@@ -31,7 +32,12 @@ public class MapTest {
 	
 	@Test
 	public void whenMapIsCreated_playerSpawnsAt0x0y() {
-		assertEquals(map.getPlayer(), map.getCavernsGrid()[0][0].getOccupants().get(0));
+		assertTrue(map.getCavernsGrid()[0][0].getOccupants().contains(map.getPlayer()));
+	}
+
+	@Test
+	public void whenMapIsCreated_wumpusSpawnsAt4x3y() {
+		assertTrue(map.getCavernsGrid()[4][3].getOccupants().contains(map.getWumpus()));
 	}
 
 	@Test(expected = RuntimeException.class)
