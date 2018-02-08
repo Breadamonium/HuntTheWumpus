@@ -56,7 +56,7 @@ public abstract class Occupant {
 		else if (Direction.REST == direction)
 			return MovementUtil.rest(map, this);
 		else
-			throw new RuntimeException();
+			return false;
 	}
 	
 	public boolean moveRandomly(Map map) {

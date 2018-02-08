@@ -37,6 +37,9 @@ public class MapVisual extends JFrame {
 		}
 		grid[0][0].setText("PLAYER");
 		grid[rows - 1][columns - 1].setText("WUMPUS");
+		grid[2][2].setBackground(Color.YELLOW);
+		grid[2][2].setForeground(Color.BLACK);
+		grid[2][2].setText("PIT");		
 	}
 
 	public JLabel[][] getGrid() {

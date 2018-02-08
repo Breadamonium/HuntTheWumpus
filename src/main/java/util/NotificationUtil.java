@@ -1,5 +1,9 @@
 package main.java.util;
 
+import java.util.ArrayList;
+
+import main.java.map.Cavern;
+import main.java.map.Map;
 import main.java.occupants.Player;
 import main.java.occupants.Wumpus;
 
@@ -24,9 +28,21 @@ public class NotificationUtil {
 		return (aCoordinate == bCoordinate);
 	}
 	
-	public static boolean checkIfPlayerIsDead(Player player, Wumpus wumpus) {
-		boolean areInSameColumn = checkIfCoordinatesAreSame(player.getColumn(), wumpus.getColumn());
-		boolean areInSameRow = checkIfCoordinatesAreSame(player.getRow(), wumpus.getRow());
-		return (areInSameColumn && areInSameRow);
+	public static boolean checkIfPlayerIsOneAwayFromPit(Player player, Map map) {
+		ArrayList<Cavern> cavernsToCheck = new ArrayList<Cavern>();
+		int playerColumn = player.getColumn();
+		int playerRow = player.getRow();
+		if (player.getColumn() > 0)
+			cavernsToCheck.add(map.getCavernsGrid()[playerColumn - 1][playerRow]);
+		if ((player.getColumn() + 1) < map.getNumberOfColumns())
+			cavernsToCheck.add(map.getCavernsGrid()[playerColumn + 1][playerRow]);
+		if ((player.getRow() + 1) < map.getNumberOfRows())
+			cavernsToCheck.add(map.getCavernsGrid()[playerColumn][playerRow + 1]);
+		if (player.getRow() > 0)
+			cavernsToCheck.add(map.getCavernsGrid()[playerColumn][playerRow - 1]);
+		for (Cavern oneCavern : cavernsToCheck) 
+			if (oneCavern.getHasPit()) 
+				return true;
+		return false;
 	}
 }

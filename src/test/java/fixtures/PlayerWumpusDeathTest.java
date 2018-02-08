@@ -1,8 +1,9 @@
 package test.java.fixtures;
 
+import main.java.map.Map;
 import main.java.occupants.Player;
 import main.java.occupants.Wumpus;
-import main.java.util.NotificationUtil;
+import main.java.util.CollisionUtil;
 
 public class PlayerWumpusDeathTest {
 	private int playerx;
@@ -11,6 +12,7 @@ public class PlayerWumpusDeathTest {
 	private int wumpusy;
 	private Player player;
 	private Wumpus wumpus;
+	private Map map = new Map(5, 5);
 
 	public int getPlayerx() {
 		return playerx;
@@ -45,15 +47,15 @@ public class PlayerWumpusDeathTest {
 	}
 
 	public void execute() {
-		player = new Player();
+		player = map.getPlayer();
 		player.setColumn(playerx);
 		player.setRow(playery);
-		wumpus = new Wumpus();
+		wumpus = map.getWumpus();
 		wumpus.setColumn(wumpusx);
 		wumpus.setRow(wumpusy);
 	}
 	
 	public boolean doesplayerdie() {
-		return NotificationUtil.checkIfPlayerIsDead(player, wumpus);
+		return CollisionUtil.checkIfPlayerIsDead(map);
 	}
 }

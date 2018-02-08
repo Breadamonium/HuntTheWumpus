@@ -15,6 +15,7 @@ public class Map {
 			initializeGridWithAllCaverns(columnsX, rowsY);
 			addPlayerToGrid();
 			addWumpusToGrid(columnsX, rowsY);
+			grid[2][2].setHasPit(true);
 		} else
 			throw new RuntimeException("Total number of caverns can't add up to more than 25.");
 	}
