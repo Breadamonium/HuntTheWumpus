@@ -1,5 +1,7 @@
 package main.java;
 
+import java.util.Scanner;
+
 import main.java.map.Map;
 import main.java.occupants.Player;
 import main.java.occupants.Wumpus;
@@ -8,36 +10,69 @@ public class Main {
 	private static Map map;
 	private static Player player;
 	private static Wumpus wumpus; 
+	private static Scanner scan;
 	
 	public static void main(String[] args) {
 		map = new Map(5, 4);
 		player = map.getPlayer();
 		wumpus = map.getWumpus();
 		
-		boolean isPlayerDead = checkIfPlayerIsDead();
+		scan = new Scanner(System.in);
+
+		boolean isPlayerDead = false;
+		boolean gavePlayerAnExtraTurn = false;
 		do {
-			System.out.println("Moving Player... ");
-			System.out.printf("\tPlayer Before: (%d,%d)\tWumpus Before: (%d,%d)\n", player.getColumn(), player.getRow(), wumpus.getColumn(), wumpus.getRow());
-			player.moveRandomly(map);
-			System.out.printf("\tPlayer After: (%d,%d)\tWumpus After: (%d,%d)\n", player.getColumn(), player.getRow(), wumpus.getColumn(), wumpus.getRow());
+			System.out.printf("Player Before: (%d,%d)\n", player.getColumn(), player.getRow());
+			movePlayer();
+			System.out.printf("Player After: (%d,%d)\n", player.getColumn(), player.getRow());
 			
 			if (checkIfPlayerIsOneAwayFromWumpus()) {
-				System.out.println("** I can smell the Wumpus. **");
-				System.out.println("\n==========================\n");
-				continue;
+				System.out.println("** I can smell the Wumpus. **\n");
+				if (!gavePlayerAnExtraTurn) {
+					gavePlayerAnExtraTurn = true;
+					continue;
+				}
 			}
 			
-			System.out.println("Moving Wumpus...");
-			System.out.printf("\tPlayer Before: (%d,%d)\tWumpus Before: (%d,%d)\n", player.getColumn(), player.getRow(), wumpus.getColumn(), wumpus.getRow());
-			wumpus.moveRandomly(map);
-			System.out.printf("\tPlayer After: (%d,%d)\tWumpus After: (%d,%d)\n", player.getColumn(), player.getRow(), wumpus.getColumn(), wumpus.getRow());
+			System.out.printf("Wumpus Before: (%d,%d)\n", wumpus.getColumn(), wumpus.getRow());
+			moveWumpus();
+			System.out.printf("Wumpus After: (%d,%d)\n\n", wumpus.getColumn(), wumpus.getRow());
+			
+			if (checkIfPlayerIsOneAwayFromWumpus()) {
+				System.out.println("** I can smell the Wumpus. **\n");
+				gavePlayerAnExtraTurn = false;
+				continue;
+			}
 
 			isPlayerDead = checkIfPlayerIsDead();
-			
-			System.out.println("\n==========================\n");
 		} while (!isPlayerDead);
+		scan.close();
 		
-		System.out.println("\nGame Over");
+		System.out.println("\n=========== Game Over ============");
+	}
+
+	private static String queryDirectionToMovePlayer() {
+		System.out.println("\tMove Player North(N), South(S), East(E), West(W), or Rest(R)?");
+		return scan.nextLine();
+	}
+
+	private static void movePlayer() {
+		String direction = queryDirectionToMovePlayer();
+		boolean wasOccupantMovementSuccessful = player.move(Direction.getDirectionFromLetter(direction), map);
+		if (!wasOccupantMovementSuccessful) {
+			while (!wasOccupantMovementSuccessful) {
+				System.out.println("\tMove unsuccessful. Please try a different direction.");
+				direction = queryDirectionToMovePlayer();
+				wasOccupantMovementSuccessful = player.move(Direction.getDirectionFromLetter(direction), map);
+			}
+		}
+	}
+	
+	private static void moveWumpus() {
+		boolean wasOccupantMovementSuccessful = wumpus.moveRandomly(map);
+		if (!wasOccupantMovementSuccessful)
+			while (!wasOccupantMovementSuccessful)
+				wasOccupantMovementSuccessful = wumpus.moveRandomly(map);
 	}
 
 	public static boolean checkIfPlayerIsDead() {
