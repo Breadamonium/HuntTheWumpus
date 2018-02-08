@@ -26,24 +26,34 @@ public abstract class Occupant {
 		this.currentRow = currentRow;
 	}
 	
-	public boolean move(Direction direction, Map map) {
+	public void teleport(Map map, int xEnd, int yEnd) {
+		int currentX = this.currentColumn;
+		int currentY = this.currentRow;
+		map.getCavernsGrid()[currentX][currentY].removeOccupant(this);
+		this.setColumn(xEnd);
+		this.setRow(yEnd);
+		map.getCavernsGrid()[xEnd][yEnd].addOccupant(this);
+	}
+	
+	public void move(Direction direction, Map map) {
 		if (Direction.SOUTH == direction) 
-			return MovementUtil.moveSouth(map, this);
-		else if (Direction.NORTH == direction)
-			return MovementUtil.moveNorth(map, this);
-		else if (Direction.EAST == direction)
-			return MovementUtil.moveEast(map, this);
+			MovementUtil.moveSouth(map, this);
+		else if (Direction.NORTH == direction) {
+			MovementUtil.moveNorth(map, this);
+		} else if (Direction.EAST == direction)
+			MovementUtil.moveEast(map, this);
 		else if (Direction.WEST == direction)
-			return MovementUtil.moveWest(map, this);
+			MovementUtil.moveWest(map, this);
 		else if (Direction.REST == direction)
-			return MovementUtil.rest(map, this);
+			MovementUtil.rest(map, this);
 		else
 			throw new RuntimeException();
 	}
 	
-	public boolean moveRandomly(Map map) {
+	public void moveRandomly(Map map) {
 		int randomNum = ThreadLocalRandom.current().nextInt(0, 5);
 		Direction nextMove = Direction.getDirectionFromNumber(randomNum);
-		return move(nextMove, map);
+		System.out.println("\tMoving " + nextMove + "...");
+		move(nextMove, map);
 	}
 }
