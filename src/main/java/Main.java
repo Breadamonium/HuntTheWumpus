@@ -106,9 +106,23 @@ public class Main {
 		
 		boolean wumpusIsNorth = areInSameColumn && checkIfCoordinatesAreSame(playerRow - 1, wumpusRow);
 		boolean wumpusIsSouth = areInSameColumn && checkIfCoordinatesAreSame(playerRow + 1, wumpusRow);
-		boolean wumpusIsEast = areInSameRow && checkIfCoordinatesAreSame(playerColumn + 1, wumpusRow);
+		boolean wumpusIsEast = areInSameRow && checkIfCoordinatesAreSame(playerColumn + 1, wumpusColumn);
         boolean wumpusIsWest = areInSameRow && checkIfCoordinatesAreSame(playerColumn - 1, wumpusColumn);
         return (wumpusIsNorth || wumpusIsEast || wumpusIsSouth || wumpusIsWest);
+	}
+	
+	public static boolean checkIsPlayerOneAway(int xCol, int yRow) {
+		int playerColumn = player.getColumn();
+		int playerRow = player.getRow();
+		
+		boolean areInSameColumn = checkIfCoordinatesAreSame(playerColumn, xCol);
+		boolean areInSameRow = checkIfCoordinatesAreSame(playerRow, yRow);
+		
+		boolean isNorth = areInSameColumn && checkIfCoordinatesAreSame(playerRow - 1, yRow);
+		boolean isSouth = areInSameColumn && checkIfCoordinatesAreSame(playerRow + 1, yRow);
+		boolean isEast = areInSameRow && checkIfCoordinatesAreSame(playerColumn + 1, xCol);
+        boolean isWest = areInSameRow && checkIfCoordinatesAreSame(playerColumn - 1, xCol);
+        return (isNorth || isEast || isSouth || isWest);
 	}
 
 	public static boolean checkIfCoordinatesAreSame(int aCoordinate, int bCoordinate) {
