@@ -21,15 +21,15 @@ public class PlayerTest extends OccupantTest {
 
 	@Test
 	public void whenPlayerTriesToMoveNorth_cavernsAndPlayerUpdatedSuccessfully() {
-		moveOccupantToCavern(player, 0, 3);		
+		moveOccupantToCavern(player, 1, 3);		
 		
-		cavernToBeOccupied = map.getCavernsGrid()[0][2];
+		cavernToBeOccupied = map.getCavernsGrid()[1][2];
 		assertCavernDoesntContainsOccupant(cavernToBeOccupied, player);
 		
 		player.move(Direction.NORTH, map);
 		
-		vacatedCavern = map.getCavernsGrid()[0][3];
-		assertOccupantCoordinates(player, 0, 2);
+		vacatedCavern = map.getCavernsGrid()[1][3];
+		assertOccupantCoordinates(player, 1, 2);
 		assertOccupantMovedCaverns(player, vacatedCavern, cavernToBeOccupied);
 	}
 
@@ -68,12 +68,12 @@ public class PlayerTest extends OccupantTest {
 	
 	@Test
 	public void whenPlayerTriesToMoveSouth_butIsInOutsideCavernOnGrid_moveFails() {
-		moveOccupantToCavern(player, 0, 3);
+		moveOccupantToCavern(player, 1, 3);
 	
 		player.move(Direction.SOUTH, map);
 		
-		cavernToBeOccupied = map.getCavernsGrid()[0][3];
-		assertOccupantCoordinates(player, 0, 3);
+		cavernToBeOccupied = map.getCavernsGrid()[1][3];
+		assertOccupantCoordinates(player, 1, 3);
 		assertCavernContainsOccupant(cavernToBeOccupied, player);
 		assertEquals(SOUTH_MOVEMENT_WARNING, outContent.toString());
 	}

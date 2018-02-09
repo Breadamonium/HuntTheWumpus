@@ -1,6 +1,7 @@
 package test.java;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +13,7 @@ public class CollisionUtilTest {
 	Map test1;
 	@Before
 	public void setup() {
-		test1 = new Map(4,3);	
+		test1 = new Map(5,5);	
 	}
 	
 	@Test
