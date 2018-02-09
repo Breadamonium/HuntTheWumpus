@@ -32,7 +32,7 @@ public class MovementUtil {
 	}
 	
 	public static boolean moveEast(Map map, Occupant occupant) {
-		if ((map.getNumberOfRows() > occupant.getColumn()) && (map.getCavernsGrid()[occupant.getColumn() + 1][occupant.getRow()] != null)) {
+		if ((map.getNumberOfColumns() > (occupant.getColumn() + 1)) && (map.getCavernsGrid()[occupant.getColumn() + 1][occupant.getRow()] != null)) {
 			removePlayerFromOldCavern(map, occupant);
 			occupant.setColumn(occupant.getColumn() + 1);
 			addPlayerToNewCavern(map, occupant);

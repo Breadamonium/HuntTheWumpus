@@ -27,15 +27,21 @@ public class MainWithPartialVisual {
 	private static boolean isWumpusDead = false;
 
 	public static void main(String[] args) {
-		map = new Map(5, 4);
+		System.out.println("Welcome to the Hunt The Wumpus Game!");
+		System.out.println("Enter how many columns you want in the game (Must be integer): ");
+		scan = new Scanner(System.in);
+		
+		int xCols = Integer.parseInt(scan.nextLine());
+		System.out.println("Enter how many rows you want in the game (Grid size cannot be more than 25): ");
+		int yRows = Integer.parseInt(scan.nextLine());
+		
+		map = new Map(xCols, yRows, 2, 1);
 		player = map.getPlayer();
 		wumpus = map.getWumpus();
 
 		visual = new MapVisual(map.getNumberOfColumns(), map.getNumberOfRows());
 		visual.getGrid()[player.getRow()][player.getColumn()].setBackground(Color.BLUE);
 		visual.setVisible(true);
-
-		scan = new Scanner(System.in);
 
 		boolean isPlayerDead = false;
 		boolean givePlayerAnExtraTurn = false;

@@ -1,5 +1,8 @@
 package main.java.map;
 
+import java.util.HashSet;
+import java.util.concurrent.ThreadLocalRandom;
+
 import main.java.occupants.Player;
 import main.java.occupants.Wumpus;
 
@@ -22,6 +25,41 @@ public class Map {
 		} else
 			throw new RuntimeException("Total number of caverns can't add up to more than 25.");
 	}
+	
+    public Map(int columnsX, int rowsY, int numPits, int numBats) {
+        if (validateColumnsAndRows(columnsX, rowsY)) {
+            initializeGridWithAllCaverns(columnsX, rowsY);
+            addPlayerToGrid();
+            addWumpusToGrid(columnsX, rowsY);
+            HashSet<Coordinate> specialCaves = new HashSet<Coordinate>();
+            Coordinate playerStart = new Coordinate(0,0);
+            Coordinate wumpusStart = new Coordinate(columnsX, rowsY);
+            specialCaves.add(playerStart);
+            specialCaves.add(wumpusStart);
+            
+            for (int i=0; i<numPits; i++) {
+            	int randomNumCol1 = ThreadLocalRandom.current().nextInt(0, this.getNumberOfColumns());
+                int randomNumRow1 = ThreadLocalRandom.current().nextInt(0, this.getNumberOfRows());
+                Coordinate coordinate = new Coordinate (randomNumCol1, randomNumRow1);
+                if (specialCaves.add(coordinate)) {
+                	grid[coordinate.x][coordinate.y].setHasPit(true);
+                } else {
+                	i--;
+                }
+            }
+            for (int j = 0; j<numBats; j++) {
+            	int randomNumCol2 = ThreadLocalRandom.current().nextInt(0, this.getNumberOfColumns());
+                int randomNumRow2 = ThreadLocalRandom.current().nextInt(0, this.getNumberOfRows());
+                Coordinate coordinate = new Coordinate(randomNumCol2, randomNumRow2);
+                if (specialCaves.add(coordinate)) {
+                	grid[coordinate.x][coordinate.y].setHasBats(true);
+                } else {
+                	j--;
+                }
+            }
+        } else
+            throw new RuntimeException("Total number of caverns can't add up to more than 25.");
+    }
 	
 	public Map() {
 	}
