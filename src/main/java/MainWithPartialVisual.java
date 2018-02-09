@@ -28,14 +28,9 @@ public class MainWithPartialVisual {
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to the Hunt The Wumpus Game!");
-		System.out.println("Enter how many columns you want in the game (Must be integer): ");
 		scan = new Scanner(System.in);
 		
-		int xCols = Integer.parseInt(scan.nextLine());
-		System.out.println("Enter how many rows you want in the game (Grid size cannot be more than 25): ");
-		int yRows = Integer.parseInt(scan.nextLine());
-		
-		map = new Map(xCols, yRows, 2, 1);
+		map = new Map(5, 4);
 		player = map.getPlayer();
 		wumpus = map.getWumpus();
 

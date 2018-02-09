@@ -24,6 +24,13 @@ public class MapTest {
 		assertEquals(NUMBER_OF_COLUMNS, map.getNumberOfColumns());
 		assertEquals(NUMBER_OF_ROWS, map.getNumberOfRows());
 	}
+
+	@Test
+	public void when3x4MapIsCreated_columnsAndRowsGeneratedSuccessfully() {
+		map = new Map(3, 4);
+		assertEquals(3, map.getNumberOfColumns());
+		assertEquals(4, map.getNumberOfRows());
+	}
 	
 	@Test
 	public void when4x5mapIsCreated_contains20caverns() {
