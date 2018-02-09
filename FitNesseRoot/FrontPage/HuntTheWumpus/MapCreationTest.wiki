@@ -1,0 +1,22 @@
+!define TEST_SYSTEM {slim}
+
+!path /Users/danosullivan/eclipse-workspaces/hunt-the-wumpus/HuntTheWumpus/bin
+
+|import|
+|test.java.fixtures|
+
+|map creation test|
+|xdimension	|ydimension	|countRoom?|
+|0            |0            |Unacceptable entry.|
+|6            |5            |Unacceptable entry.|
+|5           |5           	|25    |
+|5           |4           	|20    |
+|0           |1           	|Unacceptable entry.|
+|1           |0           	|Unacceptable entry.|
+|-1           |-2         	|Unacceptable entry.|
+|3.5         |2           	|Unacceptable entry.|
+|2           |E           	|Unacceptable entry.|
+|H           |5           	|Unacceptable entry.|
+|%           |4           	|Unacceptable entry.|
+|            |2             |Unacceptable entry.|
+|3           |              |Unacceptable entry.|

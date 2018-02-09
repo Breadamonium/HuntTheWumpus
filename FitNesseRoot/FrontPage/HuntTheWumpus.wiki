@@ -1,0 +1,22 @@
+---
+Suite
+---
+Test pages: 
+
+1. HuntTheWumpus.MapCreationTest
+
+2. HuntTheWumpus.PlayerMovementTest
+3. HuntTheWumpus.WumpusMovementTest
+
+4. HuntTheWumpus.PlayerWumpusDeathTest
+5. HuntTheWumpus.PlayerPitDeathTest
+6. HuntTheWumpus.PlayerBatTeleportationTest
+
+7. HuntTheWumpus.PlayerNotificationTest
+8. HuntTheWumpus.WumpusNotificationTest
+9. HuntTheWumpus.PitNotificationTest
+10. HuntTheWumpus.BatNotificationTest
+
+11. HuntTheWumpus.PickupArrowTest
+12. HuntTheWumpus.ShootArrowTest
+13. HuntTheWumpus.ShootArrowAtWumpusTest

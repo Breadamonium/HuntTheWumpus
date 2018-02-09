@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<testResults>
+  <FitNesseVersion>v20180127</FitNesseVersion>
+  <rootPath>FrontPage.HuntTheWumpus.PlayerPitDeathTest</rootPath>
+    <result>
+    <counts>
+      <right></right>
+      <wrong></wrong>
+      <ignores></ignores>
+      <exceptions></exceptions>
+    </counts>
+    <date>2018-02-09T10:52:00+00:00</date>
+    <runTimeInMillis>$result.runTimeInMillis</runTimeInMillis>
+    <content></content>
+    <relativePageName>PlayerPitDeathTest</relativePageName>
+          </result>
+  <executionLog>
+    <testSystem>slim:fitnesse.slim.SlimService</testSystem>
+    <command>java -cp C:\Users\danosullivan\eclipse-workspaces\fitnesse-standalone.jar;/Users/danosullivan/eclipse-workspaces/hunt-the-wumpus/HuntTheWumpus/bin fitnesse.slim.SlimService 1</command>
+    <exitCode>1</exitCode>
+    <stdOut></stdOut>
+    <stdErr></stdErr>
+    <exception>Could not send/receive data with SUT</exception>
+    <exception>fitnesse.testsystems.slim.SlimCommunicationException: Could not send/receive data with SUT</exception>
+  </executionLog>
+  <finalCounts>
+    <right>0</right>
+    <wrong>0</wrong>
+    <ignores>0</ignores>
+    <exceptions>1</exceptions>
+  </finalCounts>
+  <totalRunTimeInMillis>416</totalRunTimeInMillis>
+</testResults>
+

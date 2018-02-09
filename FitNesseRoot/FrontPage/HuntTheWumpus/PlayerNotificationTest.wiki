@@ -1,0 +1,24 @@
+!define TEST_SYSTEM {slim}
+
+!path /Users/danosullivan/eclipse-workspaces/hunt-the-wumpus/HuntTheWumpus/bin
+
+|import|
+|test.java.fixtures|
+
+!|player notification test|
+|playerx|playery|move|shownotification?|
+|0      |0      |N   |true             |
+|0      |0      |S   |false            |
+|0      |0      |E   |false            |
+|0      |0      |W   |true             |
+|2      |0      |N   |true             |
+|2      |0      |S   |false            |
+|2      |0      |E   |false            |
+|2      |0      |W   |false            |
+|2      |2      |N   |false            |
+|2      |2      |S   |false            |
+|2      |2      |E   |false            |
+|2      |2      |W   |false            |
+|4      |3      |N   |false            |
+|4      |3      |S   |false            |
+|4      |3      |W   |false            |

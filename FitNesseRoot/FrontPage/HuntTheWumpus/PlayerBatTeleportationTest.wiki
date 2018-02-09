@@ -1,0 +1,13 @@
+!define TEST_SYSTEM {slim}
+
+!path /Users/danosullivan/eclipse-workspaces/hunt-the-wumpus/HuntTheWumpus/bin
+
+|import|
+|test.java.fixtures|
+
+!|player bat teleportation test|
+|playerx|playery|batx|baty|doesplayergetmovedrandomly?|
+|3      |3      |3      |3      |true             |
+|4      |1      |4      |1      |true             |
+|0      |0      |3      |3      |false            |
+|2      |2      |4      |1      |false            |

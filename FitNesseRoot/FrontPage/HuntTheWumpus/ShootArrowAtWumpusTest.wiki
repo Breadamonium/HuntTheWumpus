@@ -1,0 +1,33 @@
+!define TEST_SYSTEM {slim}
+
+!path /Users/danosullivan/eclipse-workspaces/hunt-the-wumpus/HuntTheWumpus/bin
+
+|import|
+|test.java.fixtures|
+
+!|shoot arrow at wumpus test|
+|xstart|ystart|shootdirection|Wumpuslocation|doesWumpusdie?|
+|0     |0     |S             |(0,1)(0,2)(0,3)(0,4)|true,true,true,true|
+|0     |0     |E             |(1,0)(2,0)(3,0)(4,0)|true,true,true,true|
+|1     |0     |S             |(1,1)(1,2)(1,3)(1,4)|true,true,true,true|
+|4     |0     |S             |(4,1)(4,2)(4,3)(4,4)|true,true,true,true|
+|4     |0     |W             |(0,0)(1,0)(2,0)(3,0)|true,true,true,true|
+|4     |1     |W          	 |(3,1)(2,1)(1,1)(0,1)|true,true,true,true|
+|4     |4     |N           	 |(4,3)(4,2)(4,1)(4,0)|true,true,true,true|
+|4     |4     |W          	 |(3,4)(2,4)(1,4)(0,4)|true,true,true,true|
+|3     |4     |N           	 |(3,3)(3,2)(3,1)(3,0)|true,true,true,true|
+|0     |4     |N           	 |(0,3)(0,2)(0,1)(0,0)|true,true,true,true|
+|0     |4     |E             |(1,4)(2,4)(3,4)(4,4)|true,true,true,true|
+|0     |3     |E             |(1,3)(2,3)(3,3)(4,3)|true,true,true,true|
+|1     |0     |E             |(2,0)(3,0)(4,0)|true,true,true|
+|4     |1     |S             |(4,2)(4,3)(4,4)|true,true,true|
+|3     |4     |W             |(2,4)(1,4)(0,4)|true,true,true|
+|0     |3     |N           	 |(0,2)(0,1)(0,0)|true,true,true|
+|2     |2     |N           	 |(2,0)(2,1)|true,true|
+|2     |2     |S             |(2,3)(2,4)|true,true|
+|2     |2     |E             |(3,2)(4,2)|true,true|
+|2     |2     |W             |(1,2)(0,2)|true,true|
+|1     |0     |W             |(0,0)|true|
+|4     |1     |N             |(4,0)|true|
+|3     |4     |E             |(4,4)|true|
+|0     |3     |S             |(0,4)|true|

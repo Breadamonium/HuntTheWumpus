@@ -1,0 +1,13 @@
+!define TEST_SYSTEM {slim}
+
+!path /Users/danosullivan/eclipse-workspaces/hunt-the-wumpus/HuntTheWumpus/bin
+
+|import|
+|test.java.fixtures|
+
+!|bat notification test|
+|playerx|playery|batx|baty|shownotification?|
+|0      |0      |0      |1      |true             |
+|2      |2      |2      |3      |true             |
+|0      |0      |0      |2      |false            |
+|2      |2      |4      |4      |false            |

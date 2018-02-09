@@ -1,0 +1,15 @@
+!define TEST_SYSTEM {slim}
+
+!path /Users/danosullivan/eclipse-workspaces/hunt-the-wumpus/HuntTheWumpus/bin
+
+|import|
+|test.java.fixtures|
+
+
+
+!|player pit death test|
+|playerx|playery|pitx|pity|doesplayerdie?|
+|0      |3      |0      |3      |true             |
+|2      |3      |2      |3      |true             |
+|0      |0      |0      |3      |false            |
+|2      |2      |2      |3      |false            |
