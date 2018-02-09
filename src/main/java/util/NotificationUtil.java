@@ -41,8 +41,9 @@ public class NotificationUtil {
 		if (player.getRow() > 0)
 			cavernsToCheck.add(map.getCavernsGrid()[playerColumn][playerRow - 1]);
 		for (Cavern oneCavern : cavernsToCheck) 
-			if (oneCavern.getHasPit()) 
-				return true;
+			if (oneCavern != null)
+				if (oneCavern.getHasPit()) 
+					return true;
 		return false;
 	}
 	
@@ -59,8 +60,9 @@ public class NotificationUtil {
 		if (player.getRow() > 0)
 			cavernsToCheck.add(map.getCavernsGrid()[playerColumn][playerRow - 1]);
 		for (Cavern oneCavern : cavernsToCheck) 
-			if (oneCavern.getHasBats()) 
-				return true;
+			if (oneCavern != null)
+				if (oneCavern.getHasBats()) 
+					return true;
 		return false;
 	}
 }

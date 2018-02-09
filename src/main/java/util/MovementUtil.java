@@ -7,7 +7,7 @@ import main.java.occupants.Player;
 
 public class MovementUtil {
 	public static boolean moveNorth(Map map, Occupant occupant) {
-		if (0 < occupant.getRow()) {
+		if ((0 < occupant.getRow()) && (map.getCavernsGrid()[occupant.getColumn()][occupant.getRow() - 1] != null)) {
 			removePlayerFromOldCavern(map, occupant);
 			occupant.setRow(occupant.getRow() - 1);
 			addPlayerToNewCavern(map, occupant);
@@ -20,7 +20,7 @@ public class MovementUtil {
 	}
 	
 	public static boolean moveSouth(Map map, Occupant occupant) {
-		if (map.getNumberOfRows() > (occupant.getRow() + 1)) {
+		if ((map.getNumberOfRows() > (occupant.getRow() + 1)) && (map.getCavernsGrid()[occupant.getColumn()][occupant.getRow() + 1] != null)) {
 			removePlayerFromOldCavern(map, occupant);
 			occupant.setRow(occupant.getRow() + 1);
 			addPlayerToNewCavern(map, occupant);
@@ -32,7 +32,7 @@ public class MovementUtil {
 	}
 	
 	public static boolean moveEast(Map map, Occupant occupant) {
-		if (map.getNumberOfRows() > occupant.getColumn()) {
+		if ((map.getNumberOfRows() > occupant.getColumn()) && (map.getCavernsGrid()[occupant.getColumn() + 1][occupant.getRow()] != null)) {
 			removePlayerFromOldCavern(map, occupant);
 			occupant.setColumn(occupant.getColumn() + 1);
 			addPlayerToNewCavern(map, occupant);
@@ -44,7 +44,7 @@ public class MovementUtil {
 	}
 	
 	public static boolean moveWest(Map map, Occupant occupant) {
-		if (0 < occupant.getColumn()) {
+		if (0 < occupant.getColumn() && (map.getCavernsGrid()[occupant.getColumn() - 1][occupant.getRow()] != null)) {
 			removePlayerFromOldCavern(map, occupant);
 			occupant.setColumn(occupant.getColumn() - 1);
 			addPlayerToNewCavern(map, occupant);

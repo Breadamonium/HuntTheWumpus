@@ -35,6 +35,9 @@ public class MapVisual extends JFrame {
 			}
 		}
 		grid[0][0].setText("PLAYER");
+		grid[3][0].setBackground(Color.BLACK);
+		grid[3][0].setForeground(Color.WHITE);
+		grid[3][0].setText("BLOCKED");
 	}
 
 	public JLabel[][] getGrid() {

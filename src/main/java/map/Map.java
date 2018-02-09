@@ -18,6 +18,7 @@ public class Map {
 			grid[3][1].setHasPit(true);
 			grid[1][2].setHasPit(true);
 			grid[4][0].setHasBats(true);
+			grid[0][3] = null;
 		} else
 			throw new RuntimeException("Total number of caverns can't add up to more than 25.");
 	}

@@ -152,9 +152,9 @@ public class MainWithFullVisual {
 			direction = scan.nextLine();
 			Direction convertedDirection = Direction.getDirectionFromLetter(direction);
 			boolean arrowShot = player.shootArrow(map, convertedDirection);
-			if (!arrowShot) {
+			if (!arrowShot) 
 				showDialog("No arrows to shoot.", "No Arrows");
-			} else {
+			else {
 				if (player.checkIsInStraightPath(player.getColumn(), player.getRow(), map.getWumpus().getColumn(),
 						map.getWumpus().getRow(), convertedDirection)) {
 					showDialog("You have shot the Wumpus! You win!", "Winner");
